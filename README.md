@@ -12,7 +12,7 @@ Or from a terminal:
 
 ```
 py safgui.py
-py safgui.py "C:\Users\justin\AppData\Local\MX Simulator\2025WinterCupOBJ.saf"
+py safgui.py "C:\MX Simulator\myarchive.saf"
 ```
 
 ## Extract tab
