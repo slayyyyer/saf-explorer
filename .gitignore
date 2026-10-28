@@ -7,9 +7,10 @@ __pycache__/
 .venv/
 venv/
 
-# PyInstaller build output
+# PyInstaller build output (the built exe is shipped, so keep it tracked)
 build/
-dist/
+dist/*
+!dist/SAF Explorer.exe
 *.manifest
 
 # OS / editor
