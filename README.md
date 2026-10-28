@@ -104,7 +104,9 @@ first launch elsewhere (*More info* → *Run anyway*). Use `--onedir` instead of
 ## Continuous integration
 
 `.github/workflows/build.yml` runs on every push to `main`, every pull request
-and manual dispatch, on `windows-latest` with Python 3.14:
+and manual dispatch, on `windows-latest` with the same toolchain as the local
+build: Python 3.14.6 and PyInstaller 6.22.3, both pinned by exact version so a
+release is not built with whatever happens to be newest that day.
 
 1. **Tests** — `python -m unittest discover -s tests -v`. The retail-archive
    tests skip when the sample `.saf` is not on the machine, and the GUI tests
