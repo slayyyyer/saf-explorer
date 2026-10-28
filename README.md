@@ -101,6 +101,25 @@ archive directly. The exe is unsigned, so Windows SmartScreen will warn on
 first launch elsewhere (*More info* → *Run anyway*). Use `--onedir` instead of
 `--onefile` for faster startup and fewer antivirus false positives.
 
+## Continuous integration
+
+`.github/workflows/build.yml` runs on every push to `main`, every pull request
+and manual dispatch, on `windows-latest` with Python 3.14:
+
+1. **Tests** — `python -m unittest discover -s tests -v`. The retail-archive
+   tests skip when the sample `.saf` is not on the machine, and the GUI tests
+   skip when Tk cannot start, so the job works on a fresh runner.
+2. **Build** — PyInstaller builds `dist\SAF Explorer.exe` from the checked-in
+   spec, checks the output is a real Windows executable, and uploads it as the
+   `SAF-Explorer-windows` artifact on the workflow run.
+
+Pushing a `v*` tag also publishes a GitHub release with the exe attached:
+
+```
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 ## Layout
 
 | File | Purpose |
