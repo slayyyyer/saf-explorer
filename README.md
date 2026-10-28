@@ -122,18 +122,24 @@ release is not built with whatever happens to be newest that day.
 1. **Tests** — `python -m unittest discover -s tests -v`. The retail-archive
    tests skip when the sample `.saf` is not on the machine, and the GUI tests
    skip when Tk cannot start, so the job works on a fresh runner.
-2. **Build** — PyInstaller builds `dist\SAF Explorer.exe` from the checked-in
-   spec with `SOURCE_DATE_EPOCH` and `PYTHONHASHSEED` fixed, checks the output
-   is a real Windows executable, and uploads it as the `SAF-Explorer-windows`
-   artifact on the workflow run. The same commit therefore rebuilds to the
-   same bytes.
-
-Pushing a `v*` tag also publishes a GitHub release with the exe attached:
+2. **Build check** — PyInstaller rebuilds `dist\SAF Explorer.exe` from the
+   checked-in spec with `SOURCE_DATE_EPOCH` and `PYTHONHASHSEED` fixed, checks
+   the output is a real Windows executable, and uploads it as the
+   `SAF-Explorer-windows-build-check` artifact. This proves the recipe still
+   works; it is not what gets shipped.
+3. **Release** — pushing a `v*` tag runs a final job that checks out the tag,
+   verifies the committed `dist\SAF Explorer.exe` is a real executable, and
+   attaches that exact file to the GitHub release. Published releases
+therefore match the repository byte for byte.
 
 ```
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.0.1
+git push origin v1.0.1
 ```
+
+The build-check exe is not byte-identical to the committed one, because the
+runner bundles a different Python/Tcl payload than a local install does.
+Releases sidestep that difference by shipping the committed binary.
 
 ## Layout
 

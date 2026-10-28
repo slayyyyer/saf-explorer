@@ -20,13 +20,14 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
 
+  # Verification only: proves the spec still builds and the app still starts.
+  # Releases publish the checked-in dist exe, so the downloaded file is exactly
+  # the one in the repository rather than whatever this runner produced.
   build:
-    name: Build exe
+    name: Build check
     needs: test
     runs-on: windows-latest
     timeout-minutes: 20
-    permissions:
-      contents: write # required to attach the exe to a release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -50,14 +51,33 @@ jobs:
           $bytes = [System.IO.File]::ReadAllBytes($exe)
           if ($bytes[0] -ne 0x4D -or $bytes[1] -ne 0x5A) { throw "Not a Windows executable" }
           "SAF Explorer.exe is {0:N0} bytes" -f $file.Length
-      - name: Upload exe
+      - name: Upload build-check exe
         uses: actions/upload-artifact@v4
         with:
-          name: SAF-Explorer-windows
+          name: SAF-Explorer-windows-build-check
           path: dist/SAF Explorer.exe
           if-no-files-found: error
-      - name: Attach exe to release
-        if: startsWith(github.ref, 'refs/tags/v')
+
+  release:
+    name: Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # required to create the release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the checked-in exe
+        run: |
+          exe="dist/SAF Explorer.exe"
+          test -f "$exe" || { echo "Missing $exe"; exit 1; }
+          size=$(stat -c%s "$exe")
+          if [ "$size" -lt 5000000 ]; then echo "Unexpectedly small: $size bytes"; exit 1; fi
+          if [ "$(head -c 2 "$exe")" != "MZ" ]; then echo "Not a Windows executable"; exit 1; fi
+          sha256sum "$exe"
+          echo "Shipping the checked-in exe: $size bytes"
+      - name: Attach the checked-in exe to the release
         uses: softprops/action-gh-release@v2
         with:
           files: dist/SAF Explorer.exe
