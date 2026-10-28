@@ -1,4 +1,4 @@
-"""Double-click launcher for the MX Simulator SAF Tool (no console window)."""
+"""Double-click launcher for SAF Explorer (no console window)."""
 
 import os
 import sys
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         try:
             import tkinter.messagebox as messagebox
 
-            messagebox.showerror("MX Simulator SAF Tool", text[-1500:])
+            messagebox.showerror("SAF Explorer", text[-1500:])
         except Exception:
             pass
         raise SystemExit(1)

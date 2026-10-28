@@ -1,4 +1,4 @@
-# MX Simulator SAF Tool
+# SAF Explorer
 
 A small desktop tool for MX Simulator `.saf` archives: open one to see what is
 inside and extract files, or pack a folder back into a `.saf`. Pure Python
@@ -79,21 +79,21 @@ Notes picked up from retail archives:
 
 ## Packaging a standalone .exe
 
-`dist\MX SAF Tool.exe` (~11.5 MB, single file, no Python needed) is built with
+`dist\SAF Explorer.exe` (~11.5 MB, single file, no Python needed) is built with
 PyInstaller from a local virtualenv:
 
 ```
 py -m venv .venv
 .venv\Scripts\python -m pip install pyinstaller
-.venv\Scripts\python -m PyInstaller "MX SAF Tool.spec"
+.venv\Scripts\python -m PyInstaller "SAF Explorer.spec"
 ```
 
-The checked-in `MX SAF Tool.spec` holds the build settings (`--onefile`,
+The checked-in `SAF Explorer.spec` holds the build settings (`--onefile`,
 `--windowed`, current folder on the module path) so rebuilds use one command.
 Equivalent from scratch:
 
 ```
-.venv\Scripts\python -m PyInstaller --onefile --windowed --paths . --name "MX SAF Tool" saf_tool.pyw
+.venv\Scripts\python -m PyInstaller --onefile --windowed --paths . --name "SAF Explorer" saf_tool.pyw
 ```
 
 Drop a `.saf` onto the exe, or pass it on the command line, to open that
@@ -110,8 +110,8 @@ first launch elsewhere (*More info* → *Run anyway*). Use `--onedir` instead of
 | `saf_tool.pyw` | Double-click launcher (no console window). |
 | `tests/test_saf.py` | Format, safety and round-trip tests. |
 | `tests/test_gui_smoke.py` | Drives the real UI: open, filter, extract, build, exclude. |
-| `MX SAF Tool.spec` | PyInstaller build recipe. |
-| `dist/MX SAF Tool.exe` | Built standalone app. |
+| `SAF Explorer.spec` | PyInstaller build recipe. |
+| `dist/SAF Explorer.exe` | Built standalone app. |
 
 ## Tests
 

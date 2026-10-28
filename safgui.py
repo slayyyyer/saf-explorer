@@ -1,4 +1,4 @@
-"""MX Simulator SAF Tool - a small Tkinter GUI for .saf archives.
+"""SAF Explorer - a small Tkinter GUI for MX Simulator .saf archives.
 
 Open an archive to look inside and extract files, or pack a folder into a new
 .saf.  Requires nothing but the Python standard library.
@@ -15,7 +15,7 @@ from tkinter import filedialog, messagebox, ttk
 
 import safcore
 
-APP_TITLE = "MX Simulator SAF Tool"
+APP_TITLE = "SAF Explorer"
 APP_SUBTITLE = "Open, extract and build .saf archives"
 
 BG = "#15171c"
