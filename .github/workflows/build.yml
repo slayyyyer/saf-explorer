@@ -35,6 +35,10 @@ jobs:
       - name: Install PyInstaller
         run: python -m pip install "pyinstaller==6.22.3"
       - name: Build standalone exe
+        env:
+          # A fixed timestamp and hash seed make repeated builds byte-identical.
+          SOURCE_DATE_EPOCH: "315532800"
+          PYTHONHASHSEED: "0"
         run: python -m PyInstaller "SAF Explorer.spec" --noconfirm
       - name: Sanity-check the exe
         shell: pwsh

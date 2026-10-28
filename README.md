@@ -90,6 +90,17 @@ py -m venv .venv
 
 The checked-in `SAF Explorer.spec` holds the build settings (`--onefile`,
 `--windowed`, current folder on the module path) so rebuilds use one command.
+
+PyInstaller embeds build timestamps and is sensitive to Python's hash
+randomisation, so two builds of the same source normally differ. Setting both
+variables (CI does) makes the output byte-identical:
+
+```
+$env:SOURCE_DATE_EPOCH = "315532800"
+$env:PYTHONHASHSEED = "0"
+.venv\Scripts\python -m PyInstaller "SAF Explorer.spec"
+```
+
 Equivalent from scratch:
 
 ```
@@ -112,8 +123,10 @@ release is not built with whatever happens to be newest that day.
    tests skip when the sample `.saf` is not on the machine, and the GUI tests
    skip when Tk cannot start, so the job works on a fresh runner.
 2. **Build** — PyInstaller builds `dist\SAF Explorer.exe` from the checked-in
-   spec, checks the output is a real Windows executable, and uploads it as the
-   `SAF-Explorer-windows` artifact on the workflow run.
+   spec with `SOURCE_DATE_EPOCH` and `PYTHONHASHSEED` fixed, checks the output
+   is a real Windows executable, and uploads it as the `SAF-Explorer-windows`
+   artifact on the workflow run. The same commit therefore rebuilds to the
+   same bytes.
 
 Pushing a `v*` tag also publishes a GitHub release with the exe attached:
 
