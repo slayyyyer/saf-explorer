@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAF Explorer — inspect and build MX Simulator .saf archives</title>
+<meta name="description" content="A small Windows app for MX Simulator .saf archives: browse and extract files, or pack a folder back into an archive. An 11.5 MB exe with no dependencies.">
+<meta name="theme-color" content="#15171c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SAF Explorer — see what's inside a .saf">
+<meta property="og:description" content="Browse and extract MX Simulator .saf archives, or build new ones. Portable Windows exe, no dependencies.">
+<meta property="og:url" content="https://slayyyyer.github.io/saf-explorer/">
+<meta property="og:image" content="https://slayyyyer.github.io/saf-explorer/screenshots/extract.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v12H4z"/><path d="M4 11h16"/><path d="M9 7v4"/></svg>
+      </span>
+      <span>SAF Explorer</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#screenshots">Screenshots</a>
+      <a href="#features">Features</a>
+      <a href="#format">File format</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a class="btn btn-primary btn-small header-cta" href="https://github.com/slayyyyer/saf-explorer/releases/latest">Download</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-copy">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Windows · 11.5 MB portable exe · no dependencies</p>
+      <h1>See what's inside a <span class="accent">.saf</span>.</h1>
+      <p class="lede">SAF Explorer opens MX Simulator archives instantly, lists every file with its size and type, and extracts what you need — or packs a folder back into a <code>.saf</code>. One small executable, built from the Python standard library.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/slayyyyer/saf-explorer/releases/latest">Download for Windows</a>
+        <a class="btn btn-ghost" href="https://github.com/slayyyyer/saf-explorer">View on GitHub</a>
+      </div>
+      <p class="fineprint">No installer · One <code>.exe</code> · Drop a <code>.saf</code> on it to open the archive</p>
+    </div>
+
+    <figure class="wrap hero-figure">
+      <img src="screenshots/extract.png" alt="SAF Explorer's Extract tab with 2025WinterCupOBJ.saf open: 87 files listed with sizes and types, and Extract all, Extract selected and Select all buttons." width="1036" height="799">
+      <figcaption>An 89 MB retail archive in the Extract tab — 87 files, read from the header alone.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section" id="screenshots">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Screenshots</p>
+        <h2>Built for looking around.</h2>
+        <p class="section-lede">Captured from the running app against a real MX Simulator archive — no mock-ups.</p>
+      </div>
+
+      <div class="shots">
+        <figure class="shot">
+          <img src="screenshots/filter.png" alt="The Extract tab filtered to models/bales in 2025WinterCupOBJ.saf, with a narrowed file list and the archive summary showing how many files are shown." width="1036" height="799" loading="lazy"
+          <figcaption><strong>Filter as you type.</strong> Narrow a long file list down to the handful you need. <kbd>Ctrl</kbd> + <kbd>A</kbd> selects every visible row.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/create.png" alt="The Create tab with a track folder scanned: root name, the list of files that will go into the archive, and the Save as path." width="1036" height="799" loading="lazy"
+          <figcaption><strong>Packing a folder.</strong> Scan a directory, choose the root name, exclude rows, then build. The archive is written to a temporary file first.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Features</p>
+        <h2>Small tool, complete job.</h2>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Opens instantly</h3>
+          <p>Only the header is parsed when an archive is opened, so a 900 MB file lists its contents immediately instead of being read into memory.</p>
+        </article>
+        <article class="card">
+          <h3>Extract all or some</h3>
+          <p>Pull out every file or just the selected rows. Work runs on a background thread with a progress bar and a working Cancel button.</p>
+        </article>
+        <article class="card">
+          <h3>Paths stay contained</h3>
+          <p>Archive names are sanitized before anything is written, so <code>..</code>, absolute paths and drive letters can never escape the destination folder.</p>
+        </article>
+        <article class="card">
+          <h3>Safe by default</h3>
+          <p>Existing files are left alone unless overwriting is enabled, and a build writes to a temporary file before replacing the target — an interrupted build never leaves a broken archive.</p>
+        </article>
+        <article class="card">
+          <h3>Archive layout done right</h3>
+          <p>The root name becomes the first path component, forward slashes are used throughout, and zero-byte entries and <code>LINK</code> stubs round-trip untouched.</p>
+        </article>
+        <article class="card">
+          <h3>Nothing to install</h3>
+          <p>Pure Python standard library for the logic and Tkinter for the UI. The shipped executable is a single file and runs without Python installed.</p>
+        </article>
+      </div>
+
+      <p class="proof">Checked against <strong>424</strong> retail archives: every one parses, header length plus entry sizes equals the file size exactly, and an 89 MB archive extracts and repacks <strong>byte for byte</strong> — a case covered by the test suite.</p>
+    </div>
+  </section>
+
+  <section class="section" id="format">
+    <div class="wrap format-grid">
+      <div>
+        <p class="kicker">The file format</p>
+        <h2>A text header, then raw bytes.</h2>
+        <p class="section-lede">A <code>.saf</code> is an uncompressed container. One line per file gives the byte count and archive path; a line containing only <code>-</code> ends the header; the file data follows in the same order.</p>
+        <ul class="ticks">
+          <li>Decimal size, one space, forward-slash path, newline.</li>
+          <li>Paths may contain spaces; they are ASCII in practice.</li>
+          <li>No compression, timestamps or checksums.</li>
+          <li>Offsets are the running sum of the sizes above, so the archive is fully seekable.</li>
+        </ul>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="code-dot" aria-hidden="true"></span> 2025WinterCupOBJ.saf</div>
+        <pre><code>18216 mphOBJ2025/gates.jm
+899712 mphOBJ2025/gatesbg.png
+902443 mphOBJ2025/gatesmph.png
+30003 mphOBJ2025/models/warning/warning_spec.png
+-
+&lt;899712 bytes, then 902443 bytes, …&gt;</code></pre>
+        <p class="code-note">The same bytes in the same order, nothing else.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="download">
+    <div class="wrap">
+      <div class="download-panel">
+        <div class="download-copy">
+          <p class="kicker">Get it</p>
+          <h2>Grab the exe, or run the source.</h2>
+          <p>The release asset is the executable committed in the repository, built from the checked-in PyInstaller spec. The exe is unsigned, so Windows SmartScreen will warn on first launch elsewhere — choose <strong>More info</strong> → <strong>Run anyway</strong>.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="https://github.com/slayyyyer/saf-explorer/releases/latest">Download latest release</a>
+            <a class="btn btn-ghost" href="https://github.com/slayyyyer/saf-explorer">Source &amp; issues</a>
+          </div>
+        </div>
+        <div class="download-side">
+          <ol class="steps">
+            <li><span>1</span> Download <code>SAF.Explorer.exe</code></li>
+            <li><span>2</span> Double-click it, or drop a <code>.saf</code> onto it</li>
+            <li><span>3</span> Browse the archive — or switch to <em>Create</em> to build one</li>
+          </ol>
+          <p class="side-note">Prefer Python? Clone the repo and run:</p>
+          <pre class="snippet"><code>py safgui.py
+py safgui.py "C:\MX Simulator\myarchive.saf"</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p><strong>SAF Explorer</strong> — a standalone tool for MX Simulator <code>.saf</code> archives.</p>
+    <nav aria-label="Footer">
+      <a href="https://github.com/slayyyyer/saf-explorer">GitHub</a>
+      <a href="https://github.com/slayyyyer/saf-explorer/releases">Releases</a>
+      <a href="https://github.com/slayyyyer/saf-explorer/issues">Issues</a>
+    </nav>
+    <p class="footer-note">Not affiliated with MX Simulator. Built with Python's standard library.</p>
+  </div>
+</footer>
+</body>
+</html>

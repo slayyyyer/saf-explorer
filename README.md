@@ -4,6 +4,10 @@ A small desktop tool for MX Simulator `.saf` archives: open one to see what is
 inside and extract files, or pack a folder back into a `.saf`. Pure Python
 standard library — no installs, no dependencies.
 
+**Website:** <https://slayyyyer.github.io/saf-explorer/> — screenshots, the file
+format and download links. The page is plain HTML in `docs/` and is deployed by
+`.github/workflows/pages.yml`.
+
 ## Run it
 
 Double-click **`saf_tool.pyw`**.
@@ -152,6 +156,7 @@ Releases sidestep that difference by shipping the committed binary.
 | `tests/test_gui_smoke.py` | Drives the real UI: open, filter, extract, build, exclude. |
 | `SAF Explorer.spec` | PyInstaller build recipe. |
 | `dist/SAF Explorer.exe` | Built standalone app. |
+| `docs/` | Project website (GitHub Pages) with screenshots of the app. |
 
 ## Tests
 
