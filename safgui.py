@@ -211,7 +211,6 @@ class App(tk.Tk):
     def _build_extract_tab(self) -> None:
         tab = self.extract_tab
         tab.columnconfigure(0, weight=1)
-        tab.rowconfigure(3, weight=1)
 
         top = ttk.Frame(tab)
         top.grid(row=0, column=0, sticky="ew")
@@ -306,7 +305,6 @@ class App(tk.Tk):
     def _build_create_tab(self) -> None:
         tab = self.create_tab
         tab.columnconfigure(0, weight=1)
-        tab.rowconfigure(4, weight=1)
 
         top = ttk.Frame(tab)
         top.grid(row=0, column=0, sticky="ew")
